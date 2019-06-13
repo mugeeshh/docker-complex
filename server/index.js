@@ -49,8 +49,7 @@ app.get('/values/all', async (req,res) => {
       values = await pgClient.query('select * from values') ; 
   } catch(e) {
     console.log(e); 
-}
-    //console.log(values.rows);
+}// console.log(values.rows);
      res.send(values.rows);
 });
 
@@ -64,7 +63,7 @@ app.get('/values/current',  async (req,res) => {
 app.post('/values', async (req, res) => {
   const index = req.body.index;
   console.log('values.rows==='+index);
-  if (parseInt(index) > 40) {
+  if (parseInt(index) >= 40) {
     return res.status(422).send('Index too high');
   }
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 class Fib extends Component {
     state ={
-        seenIndicies: [],
+        seenIndexes: [],
         values: {},
         index: ''
     };
@@ -15,60 +15,69 @@ class Fib extends Component {
 
     async fetchValues() {
         const values = await axios.get('/api/values/current');
-       // console.log('1...>>');
-        //console.log(values);
+        // console.log(values);
         this.setState({values: values.data});
     }
     async fetchIndexes (){
-        const seenIndicies = await axios.get('/api/values/all');
-        //console.log('seenIndicies');
-        console.log(seenIndicies.data);
+        const seenIndexes = await axios.get('/api/values/all');
+        //console.log('seenIndexes');
+       // console.log(seenIndexes.data);
         this.setState({
-            seenIndicies: seenIndicies.data
+            seenIndexes: seenIndexes.data
         });
     }
-    handleSubmit =async (event) => {
+   
+    handleSubmit = async event => {
         event.preventDefault();
-        
+    
         await axios.post('/api/values', {
-            index: this.state.index
+          index: this.state.index
         });
-        console.log('mugeesh-->'+this.state.index);
-        this.setState({index:''});
-    };
+        //console.log('mugeesh-->'+this.state.index);
+        this.setState({ index: '' });
+      };
 
-    renderSeenIndicies(){
-        return this.state.seenIndicies.map(({number}) => number).join(', ');
+    renderSeenIndexes(){
+        return this.state.seenIndexes.map(({number}) => number).join(', ');
     }
-    renderValues(){
-        const entries= [];
-        console.log('husain-->'+this.state.index);
-         for(let key in this.state.values){ 
-            entries.push(
-                <div key={key}>
-                    For index {key} I calculated {this.state.index}
-                </div>
-            );
-        }
-        return entries;
-    } 
-    render (){
-        return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <label> Enter your index: </label>
-                    <input 
-                        value={this.state.index} 
-                        onChange ={event => this.setState({index: event.target.value})} 
-                    />
-                    <button>Submit</button>
-                    </form>
-                    <h3>Indexes I have seen:</h3>
-                    {this.renderSeenIndicies()}
-                    <h3>Calculated values:</h3>
-                      {this.renderValues()}  
+   
+    renderValues() {
+        const entries = [];
+        //console.log('husain-->'+this.state.index);
+       //console.log(this.state.values);
+        
+        for (let key in this.state.values) {
+          entries.push(
+            <div key={key}>
+              For index {key} I calculated {this.state.values[key]}
             </div>
+          );
+        }
+    
+        return entries;
+      }
+    
+    render() {
+        return (
+          <div>
+            <form onSubmit={this.handleSubmit}>
+              <label>Enter your index:</label>
+              <input
+                value={this.state.index}
+                onChange={event => this.setState({ index: event.target.value })}
+              />
+              <button>Submit</button>
+            </form>
+    
+            <h3>Indexes I have seen:</h3>
+            {this.renderSeenIndexes()}
+    
+            <h3>Calculated Values:</h3>
+            {this.renderValues()}
+          </div>
         );
+      }
     }
-}
-export default Fib;
+    
+    export default Fib;
+    

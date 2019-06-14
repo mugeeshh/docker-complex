@@ -44,7 +44,7 @@ class Fib extends Component {
     renderValues() {
         const entries = [];
         //console.log('husain-->'+this.state.index);
-       //console.log(this.state.values);
+        console.log(this.state.values);
         
         for (let key in this.state.values) {
           entries.push(

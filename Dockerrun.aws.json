@@ -1,0 +1,35 @@
+    {
+        "AWSEBDockerrunVersion": 2,
+        "containerDefiitions":[
+            {
+                "name": "client",
+                "image": "mugeesh/multi-client",
+                "hostname": "client",
+                "essential": false
+            },
+            {
+                "name": "server",
+                "image": "mugeesh/multi-server",
+                "hostname": "api",
+                "essential": false
+            },
+            {
+                "name": "worker",
+                "image": "mugeesh/multi-worker",
+                 "hostname": "worker",  
+                "essential": false
+            },
+            {
+                "name": "nginx",
+                "image": "mugeesh/multi-nginx",
+                  "hostname": "nginx",  
+                "essential": true,
+                "portMappings":[{
+                    "hostPort":80,
+                    "containerPort": 80
+                    }
+                ],
+                "links":["client","server"]
+            }
+        ]
+    }

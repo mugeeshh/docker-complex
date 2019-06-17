@@ -7,7 +7,7 @@ services:
       context: ./nginx
     ports:
       - '3050:80'
-      
+      I am going to have dinner tonight with 
   postgres:
     image: 'postgres:latest'
   redis:
@@ -27,7 +27,7 @@ services:
     - PGUSER=postgres
     - PGHOST=postgres 
     - PGDATABASE=postgres
-    - PGPASSWORD=postgres_password
+    - PGPASSWORD=postgres
     - PGPORT=5432
      
 
